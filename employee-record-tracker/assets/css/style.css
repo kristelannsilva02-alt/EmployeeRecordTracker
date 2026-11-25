@@ -1,0 +1,519 @@
+/* ==========================================================================
+   Employee Record Tracker — Apple Design System
+   Theme: Red Background | Black Tabs & Surfaces | Yellow Typography
+   ========================================================================== */
+
+:root {
+    /* 1. RED BACKGROUND PALETTE (Apple Product(RED) Depth) */
+    --apple-red-bg-base: #991b1b;
+    --apple-red-bg-deep: #7f1d1d;
+    --apple-red-bg-bright: #dc2626;
+    --apple-red-accent: #ff2d55;
+
+    /* 2. BLACK TABS & TRANSLUCENT SURFACES (§12 Materials & Depth) */
+    --apple-black-chrome: rgba(8, 8, 11, 0.88);
+    --apple-black-card: rgba(10, 10, 14, 0.90);
+    --apple-black-tab-bar: rgba(6, 6, 9, 0.92);
+    --apple-black-tab-active: #1c1c24;
+    --apple-black-input: rgba(5, 5, 8, 0.88);
+
+    /* 3. YELLOW WORDS / TYPOGRAPHY HIERARCHY (§15 Optical Sizing & Vibrancy) */
+    --apple-yellow-heading: #facc15;     /* Pure Solar Yellow for headings & KPIs */
+    --apple-yellow-text: #fef08a;        /* Crisp Warm Yellow for primary words */
+    --apple-yellow-secondary: #eab308;   /* Rich Gold-Yellow for subtitles & labels */
+    --apple-yellow-muted: rgba(250, 204, 21, 0.68);
+
+    /* Specular Edges & Borders */
+    --apple-border: rgba(250, 204, 21, 0.22);
+    --apple-border-highlight: rgba(250, 204, 21, 0.42);
+    --apple-border-red: rgba(255, 45, 85, 0.48);
+
+    /* Legacy variable aliases used in templates */
+    --apple-yellow: #facc15;
+    --apple-red: #ff2d55;
+    --apple-text-primary: #fef08a;
+    --apple-text-secondary: #eab308;
+    --apple-text-tertiary: rgba(250, 204, 21, 0.55);
+
+    /* Critically damped spring approximation (damping 1.0, response 0.35s) */
+    --spring-critically-damped: cubic-bezier(0.22, 1, 0.36, 1);
+
+    font: 100%/1.5 -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Inter", system-ui, sans-serif;
+}
+
+body {
+    /* Vibrant Apple Crimson Red Background */
+    background-color: var(--apple-red-bg-base);
+    background-image:
+        radial-gradient(circle at 18% 12%, rgba(239, 68, 68, 0.55) 0%, transparent 48%),
+        radial-gradient(circle at 85% 18%, rgba(185, 28, 28, 0.70) 0%, transparent 50%),
+        linear-gradient(145deg, #b91c1c 0%, #881337 52%, #450a0a 100%);
+    background-attachment: fixed;
+    color: var(--apple-yellow-text);
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Inter", system-ui, sans-serif;
+    font-optical-sizing: auto;
+    letter-spacing: -0.005em;
+    line-height: 1.5;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    -webkit-font-smoothing: antialiased;
+}
+
+/* Override Bootstrap text utilities so words stay Yellow */
+.text-white,
+.text-dark,
+.text-body {
+    color: var(--apple-yellow-text) !important;
+}
+
+.text-secondary,
+.text-muted {
+    color: var(--apple-yellow-secondary) !important;
+}
+
+/* ==========================================================================
+   Typography — Size-Specific Tracking & Leading in Yellow (§15)
+   ========================================================================== */
+h1, h2, h3, .display-stat {
+    letter-spacing: -0.025em;
+    line-height: 1.1;
+    font-weight: 700;
+    color: var(--apple-yellow-heading) !important;
+}
+
+h4, h5, h6 {
+    letter-spacing: -0.018em;
+    line-height: 1.2;
+    font-weight: 600;
+    color: var(--apple-yellow-heading) !important;
+}
+
+.eyebrow-label {
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.055em;
+    line-height: 1.3;
+    color: var(--apple-yellow-secondary);
+}
+
+/* ==========================================================================
+   Black Translucent Navigation Bar & Black Tabs (§12)
+   ========================================================================== */
+.navbar-brand-custom {
+    background: var(--apple-black-chrome);
+    backdrop-filter: blur(24px) saturate(180%);
+    -webkit-backdrop-filter: blur(24px) saturate(180%);
+    border-bottom: 1px solid var(--apple-border-highlight);
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.55);
+}
+
+.brand-icon-box {
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 0.75rem;
+    background: #050507;
+    border: 1px solid var(--apple-yellow-heading);
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.6);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.15rem;
+    color: var(--apple-yellow-heading);
+}
+
+/* Black Navigation Tabs with Yellow Words */
+.navbar-dark .navbar-nav .nav-link {
+    background: #121218;
+    border: 1px solid rgba(250, 204, 21, 0.22);
+    color: var(--apple-yellow-text) !important;
+    font-weight: 600;
+    padding: 0.45rem 0.95rem;
+    border-radius: 0.7rem;
+    transition: transform 100ms ease-out, background-color 160ms ease, border-color 160ms ease, box-shadow 160ms ease;
+}
+
+.navbar-dark .navbar-nav .nav-link:hover,
+.navbar-dark .navbar-nav .nav-link.active {
+    background: #000000;
+    border-color: var(--apple-yellow-heading);
+    color: var(--apple-yellow-heading) !important;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.5);
+}
+
+/* Apple Segmented Black Status Tabs on Dashboard */
+.apple-tab-bar {
+    display: inline-flex;
+    flex-wrap: wrap;
+    gap: 0.35rem;
+    background: var(--apple-black-tab-bar);
+    padding: 0.35rem;
+    border-radius: 0.9rem;
+    border: 1px solid var(--apple-border-highlight);
+    box-shadow: 0 10px 24px rgba(0, 0, 0, 0.45);
+}
+
+.apple-tab {
+    background: #0d0d12;
+    color: var(--apple-yellow-muted);
+    border: 1px solid transparent;
+    border-radius: 0.65rem;
+    padding: 0.42rem 0.95rem;
+    font-size: 0.82rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: transform 100ms ease-out, background-color 160ms var(--spring-critically-damped), color 160ms ease, border-color 160ms ease;
+}
+
+.apple-tab:hover {
+    background: #16161f;
+    color: var(--apple-yellow-text);
+}
+
+.apple-tab.active {
+    background: #000000;
+    color: var(--apple-yellow-heading);
+    border-color: var(--apple-yellow-heading);
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.65);
+}
+
+.apple-tab:active {
+    transform: scale(0.96);
+}
+
+/* ==========================================================================
+   Buttons — Black Tabs/Pills with Yellow Words & Instant Press (§1)
+   ========================================================================== */
+.btn,
+.apple-tab,
+.stat-card {
+    -webkit-tap-highlight-color: transparent;
+    user-select: none;
+}
+
+.btn {
+    border-radius: 0.75rem;
+    font-weight: 600;
+    letter-spacing: -0.008em;
+    transition: transform 100ms ease-out, background-color 160ms var(--spring-critically-damped), border-color 160ms ease, box-shadow 160ms ease;
+}
+
+.btn:active,
+.btn.is-pressed {
+    transform: scale(0.96) !important;
+    transition: transform 80ms ease-out !important;
+}
+
+/* Black Primary Tab Button with Yellow Text */
+.btn-apple-red,
+.btn-apple-yellow {
+    background: linear-gradient(180deg, #181820 0%, #050508 100%);
+    border: 1px solid var(--apple-yellow-heading);
+    color: var(--apple-yellow-heading) !important;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.55), inset 0 1px 0 rgba(250, 204, 21, 0.25);
+}
+
+.btn-apple-red:hover,
+.btn-apple-red:focus-visible,
+.btn-apple-yellow:hover,
+.btn-apple-yellow:focus-visible {
+    background: #000000;
+    border-color: #fef08a;
+    color: #fef08a !important;
+    box-shadow: 0 8px 22px rgba(0, 0, 0, 0.75), 0 0 12px rgba(250, 204, 21, 0.25);
+}
+
+/* Secondary Black Tab Button with Yellow Words */
+.btn-apple-dark {
+    background: #0d0d12;
+    border: 1px solid var(--apple-border);
+    color: var(--apple-yellow-text) !important;
+}
+
+.btn-apple-dark:hover,
+.btn-apple-dark:focus-visible {
+    background: #000000;
+    border-color: var(--apple-yellow-heading);
+    color: var(--apple-yellow-heading) !important;
+}
+
+/* ==========================================================================
+   Black Translucent Cards & KPI Stat Surfaces (§12)
+   ========================================================================== */
+.stat-card {
+    background: var(--apple-black-card);
+    backdrop-filter: blur(20px) saturate(160%);
+    -webkit-backdrop-filter: blur(20px) saturate(160%);
+    border: 1px solid var(--apple-border);
+    border-top: 1px solid var(--apple-border-highlight);
+    border-radius: 1.1rem;
+    box-shadow: 0 14px 30px -6px rgba(0, 0, 0, 0.65);
+    transition: transform 280ms var(--spring-critically-damped), border-color 220ms ease, box-shadow 280ms var(--spring-critically-damped);
+}
+
+.stat-card:hover {
+    transform: translateY(-2px);
+    border-color: var(--apple-yellow-heading);
+    box-shadow: 0 18px 36px -6px rgba(0, 0, 0, 0.8);
+}
+
+.stat-card-red,
+.stat-card-yellow {
+    border-left: 3px solid var(--apple-yellow-heading);
+}
+
+.stat-icon {
+    width: 3rem;
+    height: 3rem;
+    border-radius: 0.85rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.35rem;
+    flex-shrink: 0;
+    background: #000000;
+    color: var(--apple-yellow-heading);
+    border: 1px solid var(--apple-border-highlight);
+}
+
+.content-card {
+    background: var(--apple-black-card);
+    backdrop-filter: blur(24px) saturate(170%);
+    -webkit-backdrop-filter: blur(24px) saturate(170%);
+    border: 1px solid var(--apple-border);
+    border-top: 1px solid var(--apple-border-highlight);
+    border-radius: 1.25rem;
+    box-shadow: 0 22px 48px -10px rgba(0, 0, 0, 0.75);
+    color: var(--apple-yellow-text);
+}
+
+/* ==========================================================================
+   Employee Avatar & Status Badges (Black Pills + Yellow Words)
+   ========================================================================== */
+.emp-avatar {
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 50%;
+    font-weight: 700;
+    font-size: 0.82rem;
+    letter-spacing: 0.02em;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: #000000;
+    color: var(--apple-yellow-heading);
+    border: 1px solid var(--apple-yellow-heading);
+    flex-shrink: 0;
+}
+
+.emp-code-pill {
+    background: #000000;
+    color: var(--apple-yellow-heading);
+    border: 1px solid var(--apple-border-highlight);
+    padding: 0.3em 0.65em;
+    border-radius: 0.5rem;
+    font-size: 0.78rem;
+    font-weight: 600;
+}
+
+.badge-status {
+    padding: 0.38em 0.8em;
+    font-weight: 600;
+    font-size: 0.74rem;
+    letter-spacing: 0.02em;
+    border-radius: 999px;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    background-color: #000000;
+    color: var(--apple-yellow-heading);
+    border: 1px solid var(--apple-border-highlight);
+}
+
+.badge-status::before {
+    content: "";
+    width: 0.42rem;
+    height: 0.42rem;
+    border-radius: 50%;
+    display: inline-block;
+    background-color: var(--apple-yellow-heading);
+    box-shadow: 0 0 6px var(--apple-yellow-heading);
+}
+
+.badge-probation::before,
+.badge-resigned::before {
+    background-color: var(--apple-red-accent);
+    box-shadow: 0 0 6px var(--apple-red-accent);
+}
+
+/* ==========================================================================
+   Table Refinements (Black Surface + Yellow Words)
+   ========================================================================== */
+.table-employees {
+    --bs-table-bg: transparent;
+    --bs-table-color: var(--apple-yellow-text);
+    --bs-table-border-color: rgba(250, 204, 21, 0.14);
+    --bs-table-hover-bg: rgba(0, 0, 0, 0.55);
+    --bs-table-hover-color: var(--apple-yellow-heading);
+    margin-bottom: 0;
+}
+
+.table-employees thead th {
+    background-color: #050508;
+    color: var(--apple-yellow-heading);
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.055em;
+    border-bottom: 1px solid var(--apple-border-highlight);
+    padding-top: 0.9rem;
+    padding-bottom: 0.9rem;
+}
+
+.table-employees tbody td {
+    vertical-align: middle;
+    padding-top: 0.95rem;
+    padding-bottom: 0.95rem;
+    color: var(--apple-yellow-text);
+}
+
+/* ==========================================================================
+   Form Controls & Inputs (Black Boxes + Yellow Words)
+   ========================================================================== */
+.form-label {
+    font-weight: 600;
+    font-size: 0.84rem;
+    letter-spacing: -0.005em;
+    color: var(--apple-yellow-heading);
+    margin-bottom: 0.4rem;
+}
+
+.form-control,
+.form-select,
+.input-group-text {
+    background-color: var(--apple-black-input);
+    border: 1px solid var(--apple-border-highlight);
+    color: var(--apple-yellow-text) !important;
+    border-radius: 0.75rem;
+    padding: 0.6rem 0.9rem;
+    transition: border-color 160ms ease, box-shadow 160ms ease, background-color 160ms ease;
+}
+
+.input-group-text {
+    color: var(--apple-yellow-heading) !important;
+    background-color: #000000;
+}
+
+.form-control::placeholder {
+    color: rgba(250, 204, 21, 0.45);
+}
+
+.form-control:focus,
+.form-select:focus {
+    background-color: #000000;
+    border-color: var(--apple-yellow-heading);
+    color: var(--apple-yellow-heading) !important;
+    box-shadow: 0 0 0 3px rgba(250, 204, 21, 0.25);
+}
+
+.form-select option {
+    background-color: #0a0a0e;
+    color: var(--apple-yellow-heading);
+}
+
+/* ==========================================================================
+   Modal & Sheet Materialization (Black Sheet + Yellow Words)
+   ========================================================================== */
+.modal-backdrop.show {
+    opacity: 0.76;
+    backdrop-filter: blur(8px);
+}
+
+.modal-content-apple {
+    background: rgba(8, 8, 12, 0.96);
+    backdrop-filter: blur(28px) saturate(190%);
+    -webkit-backdrop-filter: blur(28px) saturate(190%);
+    border: 1px solid var(--apple-yellow-heading);
+    border-radius: 1.35rem;
+    color: var(--apple-yellow-text);
+    box-shadow: 0 28px 60px rgba(0, 0, 0, 0.85);
+    will-change: transform, opacity;
+}
+
+.sheet-grab-handle {
+    width: 2.75rem;
+    height: 0.32rem;
+    background: rgba(250, 204, 21, 0.4);
+    border-radius: 999px;
+    margin: 0.65rem auto 0.25rem;
+    cursor: grab;
+    touch-action: none;
+}
+
+.sheet-grab-handle:active {
+    cursor: grabbing;
+    background: var(--apple-yellow-heading);
+}
+
+.detail-tile {
+    background: #050508;
+    border: 1px solid var(--apple-border);
+    border-radius: 0.95rem;
+    padding: 1rem 1.15rem;
+    color: var(--apple-yellow-text);
+    transition: border-color 180ms ease, transform 220ms var(--spring-critically-damped);
+}
+
+.detail-tile:hover {
+    border-color: var(--apple-yellow-heading);
+    transform: translateY(-1px);
+}
+
+/* Alerts (Black Bar + Yellow Words) */
+.alert-apple-success,
+.alert-apple-danger {
+    background: #07070a;
+    border: 1px solid var(--apple-yellow-heading);
+    color: var(--apple-yellow-heading);
+    border-radius: 0.9rem;
+}
+
+/* Footer */
+.footer-custom {
+    margin-top: auto;
+    background: var(--apple-black-chrome);
+    backdrop-filter: blur(16px);
+    border-top: 1px solid var(--apple-border-highlight);
+    color: var(--apple-yellow-text);
+}
+
+/* ==========================================================================
+   Reduced Motion, Reduced Transparency & High Contrast (§14 Accessibility)
+   ========================================================================== */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 120ms !important;
+        scroll-behavior: auto !important;
+    }
+    .stat-card:hover,
+    .detail-tile:hover,
+    .btn:active {
+        transform: none !important;
+    }
+}
+
+@media (prefers-reduced-transparency: reduce) {
+    .navbar-brand-custom,
+    .stat-card,
+    .content-card,
+    .modal-content-apple {
+        background: #0a0a0e !important;
+        backdrop-filter: none !important;
+        -webkit-backdrop-filter: none !important;
+    }
+}
